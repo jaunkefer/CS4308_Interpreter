@@ -1,12 +1,10 @@
 /* 
     CS4308 Interpreter -- Main
     
-    Authors
-    Joshua Unkefer
-    Eric Bell
-    Farid Khan
-
-    A change was made...
+    Authors:
+        Joshua Unkefer
+        Eric Bell
+        Farid Khan
 */
 
 package cs4308_interpreter;
