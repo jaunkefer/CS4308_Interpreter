@@ -1,10 +1,10 @@
 /*
     CS4308 Interpreter -- Scanner
 
-    Authors
-    Joshua Unkefer
-    Eric Bell
-    Farid Khan
+    Authors:
+        Joshua Unkefer
+        Eric Bell
+        Farid Khan
  */
 package cs4308_interpreter;
 
