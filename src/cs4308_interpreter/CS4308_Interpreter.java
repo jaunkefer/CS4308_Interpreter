@@ -5,8 +5,6 @@
     Joshua Unkefer
     Eric Bell
     Farid Khan
-
-    A change was made...
 */
 
 package cs4308_interpreter;
