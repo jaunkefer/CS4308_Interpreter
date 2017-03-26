@@ -16,10 +16,12 @@ public class CS4308_Interpreter
     public static void main(String[] args) 
     {
         //Create a new object of type ScannerClass
-        ScannerClass r = new ScannerClass();
+        ScannerClass scan = new ScannerClass();
+        //Create a new object of type ParserClass
+        ParserClass pars = new ParserClass();
         
         //Creates an ArrayList of strings to hold individual lines of the file
-        ArrayList<String> fileContents = r.lexicalAnalyzer("lua_interpreter_file.lua");
+        ArrayList<String> fileContents = scan.lexicalAnalyzer("lua_interpreter_file.lua");
         
         //Loop prints line by line the contents of the file
         //NOTE: This loop is not necessary for the final build, but demonstrates
@@ -27,5 +29,7 @@ public class CS4308_Interpreter
         //file
         for(int i = 0; i < fileContents.size(); i++)
             System.out.print(fileContents.get(i));
+        
+        pars.syntax(fileContents);
     }    
 }
