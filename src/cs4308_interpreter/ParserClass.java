@@ -399,6 +399,7 @@ public class ParserClass
         {
             cont = true;
             leading_zero = false;
+            negative = false;
             counter++;
         }
     }   
