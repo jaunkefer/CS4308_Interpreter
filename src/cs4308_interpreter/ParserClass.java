@@ -71,6 +71,13 @@ public class ParserClass
                     if(!cont)
                         break;
                 }
+                
+                else if(x.get(i).contains("ZERO"))
+                {
+                    token_zero(x);
+                    if(!cont)
+                        break;
+                }
 
                 else if(x.get(i).contains("LEFT_PARENTHESIS"))
                 {
@@ -89,13 +96,6 @@ public class ParserClass
                 else if(x.get(i).contains("NEW LINE"))
                 {
                     token_new_line(x);
-                    if(!cont)
-                        break;
-                }
-                
-                else if(x.get(i).contains("ZERO"))
-                {
-                    token_zero(x);
                     if(!cont)
                         break;
                 }
@@ -245,8 +245,17 @@ public class ParserClass
         
         else
         {
-            cont = true;
-            counter++;
+            if(counter + 1 < x.size()&&x.get(counter).contains("DIVIDE") && 
+                    x.get(counter + 1).contains("ZERO"))
+            {
+                System.out.println("\nCannot divide by zero...");
+                cont = false;
+            }
+            else
+            {
+                cont = true;
+                counter++;
+            }
         }
     }
     
