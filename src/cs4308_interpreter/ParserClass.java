@@ -17,6 +17,7 @@ public class ParserClass
     //Global variables
     boolean cont = true;
     boolean leading_zero = false;
+    boolean negative = false;
     
     int counter  = 0;
     Stack<String> parenthesis_closed = new Stack<String>();
@@ -49,8 +50,8 @@ public class ParserClass
                         break;
                 }
 
-                else if(x.get(i).contains("MULTIPLY")&&x.get(i).contains("DIVIDE")
-                        &&x.get(i).contains("PLUS"))
+                else if(x.get(i).contains("MULTIPLY")||x.get(i).contains("DIVIDE")
+                        ||x.get(i).contains("PLUS"))
                 {
                     token_operator(x);
                     if(!cont)
@@ -109,10 +110,7 @@ public class ParserClass
                     System.out.println("\nSyntax is correct...\n");
                 
                 else if(i + 1 == x.size() && cont == true && !parenthesis_closed.isEmpty())
-                    System.out.println("Missing closing parenthesis...");
-                
-                else
-                    System.out.println("How did you even get here, amigo?");
+                    System.out.println("\nMissing closing parenthesis...");
             } 
             
             catch(Exception e)
@@ -129,14 +127,14 @@ public class ParserClass
     {
         if(counter + 1 < x.size() && !x.get(counter + 1).contains("EQUALS"))
         {
-            System.out.println("A variable declaration must be followed by an"
+            System.out.println("\nA variable declaration must be followed by an"
                     + " equals...");
             cont = false;
         }
         
         else if(counter + 1 == x.size())
         {
-            System.out.println("Cannot end a variable declaration with a "
+            System.out.println("\nCannot end a variable declaration with a "
                     + "variable...");
             cont = false;
         }
@@ -158,7 +156,7 @@ public class ParserClass
                 !x.get(counter + 1).contains("LEFT_PARENTHESIS")&&
                 !x.get(counter + 1).contains("ZERO"))
         {
-            System.out.println("Either a minus symbol, an integer or a left "
+            System.out.println("\nEither a minus symbol, an integer or a left "
                     + "parenthesis must follow an integer variable "
                     + "declaration...");
             cont = false;
@@ -166,15 +164,18 @@ public class ParserClass
         
         else if(counter + 1 == x.size())
         {
-            System.out.println("Cannot end a variable declaration with an "
+            System.out.println("\nCannot end a variable declaration with an "
                     + "equals...");
             cont = false;
         }
         
         else
         {
-            if(x.get(counter + 1).contains("ZERO"))
+            if(counter + 1 < x.size() && x.get(counter + 1).contains("ZERO"))
                 leading_zero = true;
+            
+            else if(counter + 1 < x.size() && x.get(counter + 1).contains("MINUS"))
+                negative = true;
             
             cont = true;
             counter++;
@@ -188,24 +189,35 @@ public class ParserClass
     {
         if(counter + 1 < x.size()&&!x.get(counter + 1).contains("INTEGER")&&
                 !x.get(counter + 1).contains("MINUS")&&
-                !x.get(counter + 1).contains("LEFT_PARENTHESIS"))
+                !x.get(counter + 1).contains("LEFT_PARENTHESIS")&&
+                !x.get(counter + 1).contains("ZERO"))
         {
-            System.out.println("Only an integer, a minus symbol or a left "
+            System.out.println("\nOnly an integer, a minus symbol or a left "
                     + "parenthesis symbol can follow...");
             cont = false;
         }
         
         else if(counter + 1 == x.size())
         {
-            System.out.println("Cannot end a variable declaration with a left "
+            System.out.println("\nCannot end a variable declaration with a left "
                     + "parenthesis...");
             cont = false;
         }
         
         else
         {
-            cont = true;
-            counter++;
+            if(counter + 1 < x.size()&& negative == true && 
+                    x.get(counter + 1).contains("ZERO"))
+            {
+                System.out.println("\nNegative zero does not exist...");
+                cont = false;
+            }
+            
+            else
+            {                
+                cont = true;
+                counter++;
+            }
         }
     }
     
@@ -219,14 +231,14 @@ public class ParserClass
             !x.get(counter + 1).contains("LEFT_PARENTHESIS")&&
             !x.get(counter + 1).contains("ZERO"))
         {
-            System.out.println("An operator can only be followed by an "
+            System.out.println("\nAn operator can only be followed by an "
                         + "integer, a minus sign, or a left parenthesis...");
             cont = false;
         }
         
         else if(counter + 1 == x.size())
         {
-            System.out.println("Cannot end a variable declaration with an "
+            System.out.println("\nCannot end a variable declaration with an "
                     + "operator...");
             cont = false;
         }
@@ -248,14 +260,14 @@ public class ParserClass
                 !x.get(counter + 1).contains("MINUS")&&
                 !x.get(counter + 1).contains("LEFT_PARENTHESIS"))
         {
-            System.out.println("Only an integer or a minus sign can follow a "
+            System.out.println("\nOnly an integer or a minus sign can follow a "
                         + "left parenthesis...");
             cont = false;
         }
         
         else if(counter + 1 == x.size())
         {
-            System.out.println("Cannot end a variable declaration with a left"
+            System.out.println("\nCannot end a variable declaration with a left"
                     + " parenthesis...");
             cont = false;
         }
@@ -279,7 +291,7 @@ public class ParserClass
             !x.get(counter + 1).contains("RIGHT_PARENTHESIS")&&
             !x.get(counter + 1).contains("NEW LINE"))
         {
-            System.out.println("A right parenthesis can be followed by any"
+            System.out.println("\nA right parenthesis can be followed by any"
                         + " operator or a new line...");
             cont = false;
         }
@@ -288,7 +300,7 @@ public class ParserClass
         {
             if(parenthesis_closed.isEmpty())
             {
-                System.out.println("Must have a opening parenthesis before adding"
+                System.out.println("\nMust have a opening parenthesis before adding"
                         + " a closing parenthesis...");
                 cont = false;
             }
@@ -317,7 +329,7 @@ public class ParserClass
                 !x.get(counter + 1).contains("NEW LINE")&&
                 !x.get(counter + 1).contains("ZERO"))
         {
-            System.out.println("An integer can be followed by any operator, "
+            System.out.println("\nAn integer can be followed by any operator, "
                     + "another integer, a left or right parenthesis, or a new "
                     + "line token...");
             cont = false;
@@ -326,32 +338,6 @@ public class ParserClass
         else
         {
             cont = true;
-            counter++;
-        }
-    }
-    
-    public void token_new_line(ArrayList<String> x)
-    //Precondition:
-    //Postconditiion: Ensures the legality of the token ordering in relation to 
-    //the 'NEW LINE' token.
-    {
-        if(counter + 1 < x.size()&&!x.get(counter + 1).contains("VARIABLE"))
-        {
-            System.out.println("A variable must follow a new line...");
-            cont = false;
-        }
-        
-        else if(counter + 1 == x.size())
-        {
-            System.out.println("Cannot end a variable declaration with a new "
-                    + "line...");
-            cont = false;
-        }
-        
-        else
-        {
-            cont = true;
-            leading_zero = false;
             counter++;
         }
     }
@@ -369,7 +355,7 @@ public class ParserClass
                 !x.get(counter + 1).contains("DIVIDE")&&
                 !x.get(counter + 1).contains("NEW LINE"))
         {
-            System.out.println("A zero may be followed by an integer, right "
+            System.out.println("\nA zero may be followed by an integer, right "
                     + "parenthesis, operator or new line token...");
             cont = false;
         }
@@ -379,7 +365,7 @@ public class ParserClass
             if(leading_zero == true && counter + 1 < x.size()&&
                     x.get(counter + 1).contains("INTEGER"))
             {
-                System.out.println("An integer should not have a leading zero...");
+                System.out.println("\nAn integer should not have a leading zero...");
                 cont = false;                
             }
             
@@ -390,4 +376,30 @@ public class ParserClass
             }
         }
     }
+    
+    public void token_new_line(ArrayList<String> x)
+    //Precondition:
+    //Postconditiion: Ensures the legality of the token ordering in relation to 
+    //the 'NEW LINE' token.
+    {
+        if(counter + 1 < x.size()&&!x.get(counter + 1).contains("VARIABLE"))
+        {
+            System.out.println("\nA variable must follow a new line...");
+            cont = false;
+        }
+        
+        else if(counter + 1 == x.size())
+        {
+            System.out.println("\nCannot end a variable declaration with a new "
+                    + "line...");
+            cont = false;
+        }
+        
+        else
+        {
+            cont = true;
+            leading_zero = false;
+            counter++;
+        }
+    }   
 }
