@@ -132,8 +132,8 @@ public class ScannerClass
         convert.put('z', "VARIABLE");
         
         //Symbols
-        convert.put('(', "LEFT_PARANTHESIS");
-        convert.put(')', "RIGHT_PARANTHESIS");
+        convert.put('(', "LEFT_PARENTHESIS");
+        convert.put(')', "RIGHT_PARENTHESIS");
         convert.put('{', "LEFT_CURLY_BRACE");
         convert.put('}', "RIGHT_CURLY_BRACE");
         convert.put('[', "LEFT_BRACE");
@@ -152,7 +152,7 @@ public class ScannerClass
         convert.put('=', "EQUALS");
         
         //Integers
-        convert.put('0', "INTEGER");
+        convert.put('0', "ZERO");
         convert.put('1', "INTEGER");
         convert.put('2', "INTEGER");
         convert.put('3', "INTEGER");
